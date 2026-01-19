@@ -74,6 +74,7 @@ palette:{
     navy: "linear-gradient(135deg, #1E3A5F 0%, #152238 100%)",
   },
   
+
   grey: {
     50: "#F7F9FB",
     100: "#E8EDF2",

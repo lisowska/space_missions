@@ -89,7 +89,8 @@ const MissionCard: React.FC<MissionCardProps> = ({
         </IconButton>
           
         <Stack direction="row" spacing={2} alignItems="flex-start" sx={{ mb: 2 }}>
-          <AgencyLogo agency={mission.agency}  />
+          <AgencyLogo agency={mission.agency} sx={{width: '2.5rem',
+        height: '2.5rem',}} />
           <Box sx={{ flex: 1, minWidth: 0 }}>
             <Typography variant="h6" component="h3" sx={{ fontWeight: 600, mb: 0.5 }} color="text.primary">
               {mission.name}
@@ -118,14 +119,13 @@ const MissionCard: React.FC<MissionCardProps> = ({
         <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
           <StatusBadge status={mission.status}/>
           <TypeBadge type={mission.missionType}/>
-          {mission.crew.length > 0 && (
             <Chip
               icon={<SupportAgentIcon sx={{ fontSize: '0.875rem !important' }} />}
-              label={`${mission.crew.length} crew`}
+               label={mission.crew.length > 0 ? `${mission.crew.length} crew` : 'Uncrewed'}
               size="small"
               sx={{ fontSize: '0.75rem' }}
             />
-          )}
+     
         </Stack>
       </CardContent>
     </Card>

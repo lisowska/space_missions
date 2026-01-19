@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Box, Grid } from '@mui/material';
 import Header from './Header';
 import MissionCard from './MissionCard';
+import MissionDetail from './MissionDetail';
 import { Mission } from '../types/mission';
 import missionData from '../data/missionData.json';
 
 const MainPage: React.FC = () => {
   const [viewMode, setViewMode] = useState<'EARTH' | 'BEYOND'>('EARTH');
+   const [isDetailOpen, setIsDetailOpen] = useState(false);
+   const [selectedMission, setSelectedMission] = useState<Mission | null>(null);
   const [favorites, setFavorites] = useState<string[]>(() => {
     const stored = localStorage.getItem('spaceMissionsFavorites');
     return stored ? JSON.parse(stored) : [];
@@ -30,7 +33,10 @@ const MainPage: React.FC = () => {
     });
   };
 
-  
+   const handleMissionClick = (mission: Mission) => {
+    setSelectedMission(mission);
+    setIsDetailOpen(true);
+  };
  
 
   return (
@@ -47,14 +53,18 @@ const MainPage: React.FC = () => {
                   mission={mission}
                   isFavorite={favorites.includes(mission.id)}
                   onFavoriteToggle={handleFavoriteToggle}
-                  onClick={() => console.log('test')}
+                  onClick={handleMissionClick}
                 />
               </Grid>
             ))}
           </Grid>
       
       </Box>
-
+            <MissionDetail
+        mission={selectedMission}
+        open={isDetailOpen}
+        onClose={() => setIsDetailOpen(false)}
+      />
      
     </Box>
   );

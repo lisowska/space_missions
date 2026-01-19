@@ -5,6 +5,7 @@ import {
 
 interface AgencyLogoProps {
   agency: Agency;
+  sx:any
 }
 
 const agencyGradients: Record<Agency, { from: string; to: string }> = {
@@ -18,7 +19,7 @@ const agencyGradients: Record<Agency, { from: string; to: string }> = {
 };
 
 
-export const AgencyLogo= ({ agency }: AgencyLogoProps) => {
+export const AgencyLogo= ({ agency,sx }: AgencyLogoProps) => {
   const initials = agency.slice(0, 2).toUpperCase();
   const gradient = agencyGradients[agency];
   
@@ -26,8 +27,7 @@ export const AgencyLogo= ({ agency }: AgencyLogoProps) => {
     <Box 
       style={{
         background: `linear-gradient(135deg, ${gradient.from} 0%, ${gradient.to} 100%)`,
-        width: '2.5rem',
-        height: '2.5rem',
+        
         fontWeight: '700',
         borderRadius: '0.75rem',
         justifyContent: 'center',
@@ -36,6 +36,7 @@ export const AgencyLogo= ({ agency }: AgencyLogoProps) => {
         color:'white',
       }}
       title={agency}
+      sx={sx}
     >
       {initials}
     </Box>
