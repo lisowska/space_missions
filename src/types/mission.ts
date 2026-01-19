@@ -10,3 +10,7 @@ export interface Mission {
     launchDate: string; //ISO date
     cost?: number;
     }
+
+export type Agency = "NASA" | "ESA" | "Roscosmos" | "SpaceX" | "CNSA" | "ISRO" | "JAXA";
+export type MissionStatus = 'Success' | 'Failure' | 'Ongoing' | 'Planned';
+export type MissionType=  'Orbital' | 'Lunar' | 'Mars' | 'Deep Space' | 'ISS';
