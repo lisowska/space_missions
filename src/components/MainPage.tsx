@@ -1,15 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Grid } from '@mui/material';
+import React, { useState, useMemo, useEffect } from 'react';
+import { Box, Grid, Typography, Paper } from '@mui/material';
 import Header from './Header';
 import MissionCard from './MissionCard';
 import MissionDetail from './MissionDetail';
+import FilterPanel from './FilterPanel';
 import { Mission } from '../types/mission';
 import missionData from '../data/missionData.json';
-
+import FilterPanel2 from './FilterPanel2';
 const MainPage: React.FC = () => {
-  const [viewMode, setViewMode] = useState<'EARTH' | 'BEYOND'>('EARTH');
-   const [isDetailOpen, setIsDetailOpen] = useState(false);
-   const [selectedMission, setSelectedMission] = useState<Mission | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedAgencies, setSelectedAgencies] = useState<string[]>([]);
+  const [selectedStatuses, setSelectedStatuses] = useState<string[]>([]);
+  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
+  const [selectedMission, setSelectedMission] = useState<Mission | null>(null);
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
   const [favorites, setFavorites] = useState<string[]>(() => {
     const stored = localStorage.getItem('spaceMissionsFavorites');
     return stored ? JSON.parse(stored) : [];
@@ -21,7 +26,52 @@ const MainPage: React.FC = () => {
     localStorage.setItem('spaceMissionsFavorites', JSON.stringify(favorites));
   }, [favorites]);
 
- 
+  const filteredMissions = useMemo(() => {
+    return missions
+      .filter((mission) => {
+        if (searchQuery) {
+          const query = searchQuery.toLowerCase();
+          if (!mission.name.toLowerCase().includes(query)) {
+            return false;
+          }
+        }
+
+        if (
+          selectedAgencies.length > 0 &&
+          !selectedAgencies.includes(mission.agency)
+        ) {
+          return false;
+        }
+
+        if (
+          selectedStatuses.length > 0 &&
+          !selectedStatuses.includes(mission.status)
+        ) {
+          return false;
+        }
+
+        if (
+          selectedTypes.length > 0 &&
+          !selectedTypes.includes(mission.missionType)
+        ) {
+          return false;
+        }
+
+        if (showFavoritesOnly && !favorites.includes(mission.id)) {
+          return false;
+        }
+        return true;
+      })
+      .sort((a, b) => b.year - a.year);
+  }, [
+    missions,
+    searchQuery,
+    selectedAgencies,
+    selectedStatuses,
+    selectedTypes,
+    showFavoritesOnly,
+    favorites,
+  ]);
 
   const handleFavoriteToggle = (missionId: string) => {
     setFavorites((prev) => {
@@ -33,21 +83,72 @@ const MainPage: React.FC = () => {
     });
   };
 
-   const handleMissionClick = (mission: Mission) => {
+  const handleMissionClick = (mission: Mission) => {
     setSelectedMission(mission);
     setIsDetailOpen(true);
   };
- 
+  const handleClearAll = () => {
+    setSearchQuery('');
+    setSelectedAgencies([]);
+    setSelectedStatuses([]);
+    setSelectedTypes([]);
+    setShowFavoritesOnly(false);
+  };
 
   return (
     <Box sx={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
-      <Header onViewModeChange={setViewMode} />
-    
-
-      <Box sx={{ p: { xs: 2, md: 3 } }}>
-      
+      <Header />
+      <Box
+        sx={{
+          maxWidth: { xs: '64rem', lg: '80rem', xl: '96rem' },
+          mx: 'auto',
+          width: '100%',
+          px: { xs: 2, md: 3 },
+        }}
+      >
+        <FilterPanel2
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+          selectedAgencies={selectedAgencies}
+          onAgencyFilterChange={setSelectedAgencies}
+          selectedStatuses={selectedStatuses}
+          onStatusFilterChange={setSelectedStatuses}
+          selectedTypes={selectedTypes}
+          onTypeFilterChange={setSelectedTypes}
+          showFavoritesOnly={showFavoritesOnly}
+          onFavoritesToggle={() => setShowFavoritesOnly(!showFavoritesOnly)}
+          resultCount={filteredMissions.length}
+          totalCount={missions.length}
+          onClearAll={handleClearAll}
+        />
+      </Box>
+      <Box
+        sx={{
+          maxWidth: { xs: '64rem', lg: '80rem', xl: '96rem' },
+          mx: 'auto',
+          width: '100%',
+          p: { xs: 2, md: 3 },
+        }}
+      >
+        {filteredMissions.length === 0 ? (
+          <Paper
+            sx={{
+              p: 4,
+              textAlign: 'center',
+              backgroundColor: 'white',
+            }}
+          >
+            <Typography variant="h6" color="text.secondary" gutterBottom>
+              No missions found
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Try searching by a different mission name or adjusting your
+              filters.
+            </Typography>
+          </Paper>
+        ) : (
           <Grid container spacing={2}>
-            {missions.map((mission) => (
+            {filteredMissions.map((mission) => (
               <Grid item key={mission.id} xs={12} sm={6} md={4} lg={3}>
                 <MissionCard
                   mission={mission}
@@ -58,14 +159,13 @@ const MainPage: React.FC = () => {
               </Grid>
             ))}
           </Grid>
-      
+        )}
       </Box>
-            <MissionDetail
+      <MissionDetail
         mission={selectedMission}
         open={isDetailOpen}
         onClose={() => setIsDetailOpen(false)}
       />
-     
     </Box>
   );
 };
