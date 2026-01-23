@@ -22,6 +22,10 @@ This is a minimal React 18 + TypeScript + Material UI Space Missions app.
 
 Start building your solution in `src/App.tsx`.
 
+## Live Demo
+
+https://space-missions-gray.vercel.app/
+
 ## Design Decisions Overview:
 
 ## 1. **Design Decisions**
