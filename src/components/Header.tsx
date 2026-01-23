@@ -42,7 +42,7 @@ const Header = () => {
           spacing={1}
           sx={{
             mb: { xs: 1, md: 2 },
-            ml: { xs: 4, md: 7 },
+            ml: { xs: 3, md: 7 },
             mr: 7,
             mt: { xs: 3 },
           }}
@@ -154,7 +154,7 @@ const Header = () => {
           <Avatar
             alt="NASA logo"
             src={logo}
-            sx={{ width: { xs: 75, md: 95 }, height: { xs: 75, md: 95 } }}
+            sx={{ width: { xs: 70, md: 95 }, height: { xs: 70, md: 95 } }}
           />
         </Stack>
       </Box>
