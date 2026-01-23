@@ -24,7 +24,7 @@ Start building your solution in `src/App.tsx`.
 
 ## Design Decisions Overview:
 
-1. **Design Decisions**
+## 1. **Design Decisions**
 
 ### Layout Choice
 
