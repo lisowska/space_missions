@@ -86,18 +86,18 @@ I'd want to test: **Filter discoverability** - do users find the filter buttons 
 
 ### Desktop view
 
-![Desktop view](./src/assets/screenshots/Desktop_1.png)
-![Desktop view: filters](./src/assets/screenshots/Desktop_2.png)
-![Desktop view: filters](./src/assets/screenshots/Desktop_3.png)
-![Desktop: Mission Deatail view](./src/assets/screenshots/Desktop_MissionDetail.4.png)
+<img src="./src/assets/screenshots/Desktop_1.png" width="800" alt="Desktop view" />
+
+<img src="./screenshots/mobile.png" width="300" alt="Mobile view" />
+
+![Desktop view]<img src="./src/assets/screenshots/Desktop_1.png" width="800" alt="Desktop view" />
+![Desktop view: filters]<img src="./src/assets/screenshots/Desktop_2.png" width="800" alt="Desktop view" />
+![Desktop view: filters]<img src="./src/assets/screenshots/Desktop_3.png" width="800" alt="Desktop view" />
+![Desktop: Mission Deatail view]<img src="./src/assets/screenshots/Desktop_MissionDetail.4.png" width="800" alt="Desktop view" />
 
 ### Mobile view
 
-![Mobile view: filters](./src/assets/screenshots/Mobile_1.png)
-![Mobile view:filters](./src/assets/screenshots/Mobile_2.png)
-![Mobile: No found view](./src/assets/screenshots/Mobile_3.png)
-![Mobile: Mission Detail view](./src/assets/screenshots/Mobile_MissionDetail_4.png)
-
-### Key interaction – filters
-
-![Key interaction](./screenshots/interaction.png)
+![Mobile view: filters]<img src="./src/assets/screenshots/Mobile_1.png" width="300" alt="Mobile view" />
+![Mobile view:filters]<img src="./src/assets/screenshots/Mobile_2.png" width="300" alt="Mobile view" />
+![Mobile: No found view]<img src="./src/assets/screenshots/Mobile_3.png" width="300" alt="Mobile view" />
+![Mobile: Mission Detail view]<img src="./src/assets/screenshots/Mobile_MissionDetail_4.png" width="300" alt="Mobile view" />
