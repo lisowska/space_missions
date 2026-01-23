@@ -86,14 +86,10 @@ I'd want to test: **Filter discoverability** - do users find the filter buttons 
 
 ### Desktop view
 
-<img src="./src/assets/screenshots/Desktop_1.png" width="800" alt="Desktop view" />
-
-<img src="./screenshots/mobile.png" width="300" alt="Mobile view" />
-
 ![Desktop view]<img src="./src/assets/screenshots/Desktop_1.png" width="800" alt="Desktop view" />
 ![Desktop view: filters]<img src="./src/assets/screenshots/Desktop_2.png" width="800" alt="Desktop view" />
 ![Desktop view: filters]<img src="./src/assets/screenshots/Desktop_3.png" width="800" alt="Desktop view" />
-![Desktop: Mission Deatail view]<img src="./src/assets/screenshots/Desktop_MissionDetail.4.png" width="800" alt="Desktop view" />
+![Desktop: Mission Deatail view]<img src="./src/assets/screenshots/Desktop_MissionDetail.4.png" width="700" alt="Desktop view" />
 
 ### Mobile view
 
