@@ -20,6 +20,7 @@ import StarIcon from '@mui/icons-material/Star';
 import CheckIcon from '@mui/icons-material/Check';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { Mission } from '../types/mission';
+import { statusColor } from './styleUtils';
 
 interface FilterPanelProps {
   searchQuery: string;
@@ -131,13 +132,6 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
     </Box>
   );
 
-  const statusColor: Record<Mission['status'], string> = {
-    Success: '#16A34A',
-    Failure: '#EF4444',
-    Ongoing: '#06B6D4',
-    Planned: '#F59E0B',
-  };
-
   return (
     <Box sx={{ position: 'sticky', top: 16, zIndex: 20, pt: 2, pb: 2 }}>
       <Paper
@@ -145,7 +139,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
         sx={{
           position: 'relative',
           overflow: 'hidden',
-          borderRadius: 4,
+          borderRadius: 2,
           bgcolor: 'rgba(255, 255, 255, 0.8)',
           backdropFilter: 'blur(20px)',
           border: '1px solid',
@@ -164,7 +158,6 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
           }}
         />
         <Box sx={{ p: 2, backgroundColor: 'white' }}>
-          {/* Search and Result Count */}
           <Stack direction="row" spacing={2} sx={{ mb: 2 }} alignItems="center">
             <TextField
               fullWidth
@@ -172,52 +165,56 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
               value={searchQuery}
               size="small"
               onChange={(e) => onSearchChange(e.target.value)}
+              aria-label="Search missions by name"
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start" sx={{ color: '#162B47' }}>
                     <SearchIcon
                       sx={{ color: 'text.secondary', fontSize: 20 }}
+                      aria-hidden="true"
                     />
                   </InputAdornment>
                 ),
               }}
-              // sx={{
-              //   flex: 1,
-              //   backgroundColor: '#E8EDF2',
-              //   fontSize: '0.875rem',
-              //   borderRadius: '0.75rem',
-              //   height: '2.5rem',
-              //   color: 'red',
-              //   width: '200px',
-              // }}
               sx={{
                 '& .MuiOutlinedInput-root': {
-                  borderRadius: 3,
-                  bgcolor: 'action.hover',
-                  '& fieldset': { border: 'none' },
-                  '&:hover': { bgcolor: 'secondary.main' },
-                  '&.Mui-focused': {
-                    bgcolor: 'background.paper',
-                    boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.3)',
-                  },
+                  borderRadius: 2,
+                  bgcolor: '#CDD9E480',
                 },
               }}
             />
             <Paper
               sx={{
                 px: 2,
-                py: 1,
-                backgroundColor: 'primary.main',
-                minWidth: '100px',
+                py: 0.9,
+                backgroundColor: '#CDD9E480',
+                minWidth: { xs: '110px', md: '240px' },
                 textAlign: 'center',
+                borderRadius: 2,
               }}
             >
               <Typography
-                variant="body2"
-                color="primary.contrastText"
-                sx={{ fontWidth: '600' }}
+                component="span"
+                color="#101D2E"
+                sx={{ fontWeight: '700', pr: '5px' }}
               >
-                {resultCount} of {totalCount}
+                <Box
+                  component="span"
+                  sx={{ display: { xs: 'none', sm: 'inline' } }}
+                >
+                  Showing{' '}
+                </Box>
+                {resultCount}
+              </Typography>
+              <Typography component="span" color="#365780">
+                of {totalCount}
+                <Box
+                  component="span"
+                  sx={{ display: { xs: 'none', sm: 'inline' } }}
+                >
+                  {' '}
+                  missions
+                </Box>
               </Typography>
             </Paper>
           </Stack>
@@ -231,75 +228,135 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
           >
             <Button
               variant={activeFilterCount > 0 ? 'contained' : 'outlined'}
-              startIcon={<FilterListIcon />}
+              startIcon={<FilterListIcon aria-hidden="true" />}
               onClick={onClearAll}
               disabled={activeFilterCount === 0}
               size="small"
+              aria-label={
+                activeFilterCount > 0
+                  ? `Clear all ${activeFilterCount} filters`
+                  : 'No filters to clear'
+              }
+              sx={{ fontSize: { xs: '0.7rem', md: '0.8rem' } }}
             >
               Filters {activeFilterCount > 0 && `(${activeFilterCount})`}
             </Button>
 
             <Button
+              id="agency-filter-button"
               variant={selectedAgencies.length > 0 ? 'contained' : 'outlined'}
-              startIcon={<BusinessIcon />}
+              startIcon={<BusinessIcon aria-hidden="true" />}
               endIcon={
                 <ArrowDropDownIcon
                   sx={{
                     transform: agencyAnchor ? 'rotate(180deg)' : 'rotate(0deg)',
                     transition: 'transform 0.2s ease-in-out',
                   }}
+                  aria-hidden="true"
                 />
               }
               onClick={(e) => setAgencyAnchor(e.currentTarget)}
-              size="medium"
+              size="small"
+              aria-label={`Filter by agency${selectedAgencies.length > 0 ? `, ${selectedAgencies.length} selected` : ''}`}
+              aria-expanded={Boolean(agencyAnchor)}
+              aria-haspopup="true"
+              sx={{ fontSize: { xs: '0.7rem', md: '0.8rem' } }}
             >
               Agency{' '}
               {selectedAgencies.length > 0 && `(${selectedAgencies.length})`}
             </Button>
 
             <Button
+              id="status-filter-button"
               variant={selectedStatuses.length > 0 ? 'contained' : 'outlined'}
-              startIcon={<ScheduleIcon />}
+              startIcon={<ScheduleIcon aria-hidden="true" />}
               endIcon={
                 <ArrowDropDownIcon
                   sx={{
                     transform: statusAnchor ? 'rotate(180deg)' : 'rotate(0deg)',
                     transition: 'transform 0.2s ease-in-out',
                   }}
+                  aria-hidden="true"
                 />
               }
               onClick={(e) => setStatusAnchor(e.currentTarget)}
-              size="medium"
+              size="small"
+              aria-label={`Filter by status${selectedStatuses.length > 0 ? `, ${selectedStatuses.length} selected` : ''}`}
+              aria-expanded={Boolean(statusAnchor)}
+              aria-haspopup="true"
+              sx={{ fontSize: { xs: '0.7rem', md: '0.8rem' } }}
             >
               Status{' '}
               {selectedStatuses.length > 0 && `(${selectedStatuses.length})`}
             </Button>
 
             <Button
+              id="type-filter-button"
               variant={selectedTypes.length > 0 ? 'contained' : 'outlined'}
-              startIcon={<RocketLaunchIcon />}
+              startIcon={<RocketLaunchIcon aria-hidden="true" />}
               endIcon={
                 <ArrowDropDownIcon
                   sx={{
                     transform: typeAnchor ? 'rotate(180deg)' : 'rotate(0deg)',
                     transition: 'transform 0.2s ease-in-out',
                   }}
+                  aria-hidden="true"
                 />
               }
               onClick={(e) => setTypeAnchor(e.currentTarget)}
-              size="medium"
+              size="small"
+              aria-label={`Filter by mission type${selectedTypes.length > 0 ? `, ${selectedTypes.length} selected` : ''}`}
+              aria-expanded={Boolean(typeAnchor)}
+              aria-haspopup="true"
+              sx={{ fontSize: { xs: '0.7rem', md: '0.8rem' } }}
             >
               Type {selectedTypes.length > 0 && `(${selectedTypes.length})`}
             </Button>
 
             <Button
               variant={showFavoritesOnly ? 'contained' : 'outlined'}
-              startIcon={<StarIcon />}
+              startIcon={<StarIcon aria-hidden="true" />}
               onClick={onFavoritesToggle}
-              size="medium"
+              size="small"
+              aria-label={
+                showFavoritesOnly ? 'Show all missions' : 'Show favorites only'
+              }
+              aria-pressed={showFavoritesOnly}
+              sx={{ fontSize: { xs: '0.7rem', md: '0.8rem' } }}
             >
               Favorites
             </Button>
+            {activeFilterCount > 0 && (
+              <Button
+                variant="outlined"
+                size="small"
+                color="primary"
+                onClick={onClearAll}
+                aria-label={`Clear ${activeFilterCount} active filters`}
+                sx={{
+                  marginLeft: { md: 'auto' },
+                  fontSize: { xs: '0.7rem', md: '0.8rem' },
+                }}
+              >
+                Clear All&nbsp;
+                <Box
+                  component="span"
+                  sx={{
+                    minWidth: 20,
+                    height: 20,
+                    borderRadius: '999px',
+                    bgcolor: 'primary.main',
+                    color: 'primary.contrastText',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    px: 0.75,
+                  }}
+                >
+                  {activeFilterCount}
+                </Box>
+              </Button>
+            )}
           </Stack>
 
           {activeFilterCount > 0 && (
@@ -334,6 +391,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
                   size="small"
                 />
               ))}
+
               {showFavoritesOnly && (
                 <Chip
                   label="Favorites Only"
@@ -350,9 +408,15 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
             onClose={() => setAgencyAnchor(null)}
             slotProps={{
               paper: {
-                sx: { width: 160, borderRadius: 2, overflow: 'hidden', mt: 1 },
+                sx: {
+                  width: 160,
+                  borderRadius: 2,
+                  overflow: 'hidden',
+                  mt: 1,
+                },
               },
             }}
+            aria-labelledby="agency-filter-button"
           >
             <SelectHeader title="Select agencies" />
             {agencies.map((agency) => (
@@ -360,9 +424,15 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
                 key={agency}
                 onClick={() => handleAgencyToggle(agency)}
                 selected={selectedAgencies.includes(agency)}
-                sx={{ py: 1.25, gap: 1.1, justifyContent: 'space-between' }}
+                sx={{
+                  py: 1.25,
+                  gap: 1.1,
+                  justifyContent: 'space-between',
+                }}
               >
-                <Typography sx={{ fontWeight: 500 }}>{agency}</Typography>
+                <Typography sx={{ fontWeight: 500, fontSize: '0.875rem' }}>
+                  {agency}
+                </Typography>
                 <CheckSlot checked={selectedAgencies.includes(agency)} />
               </MenuItem>
             ))}
@@ -377,6 +447,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
                 sx: { width: 160, borderRadius: 2, overflow: 'hidden', mt: 1 },
               },
             }}
+            aria-labelledby="status-filter-button"
           >
             <SelectHeader title="Select status" />
             {statuses.map((status) => (
@@ -395,7 +466,9 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
                     bgcolor: statusColor[status],
                   }}
                 />
-                <Typography sx={{ fontWeight: 500 }}>{status}</Typography>
+                <Typography sx={{ fontWeight: 500, fontSize: '0.875rem' }}>
+                  {status}
+                </Typography>
                 <CheckSlot checked={selectedStatuses.includes(status)} />
               </MenuItem>
             ))}
@@ -409,6 +482,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
                 sx: { width: 160, borderRadius: 2, overflow: 'hidden', mt: 1 },
               },
             }}
+            aria-labelledby="type-filter-button"
           >
             <SelectHeader title="Select type" />
             {types.map((type) => (
@@ -418,7 +492,9 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
                 selected={selectedTypes.includes(type)}
                 sx={{ py: 1.25, gap: 1.25, justifyContent: 'space-between' }}
               >
-                <Typography sx={{ fontWeight: 600 }}>{type}</Typography>
+                <Typography sx={{ fontWeight: 600, fontSize: '0.875rem' }}>
+                  {type}
+                </Typography>
                 <CheckSlot checked={selectedTypes.includes(type)} />
               </MenuItem>
             ))}

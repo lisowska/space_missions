@@ -4,6 +4,7 @@ import NightsStayIcon from '@mui/icons-material/NightsStay';
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import SatelliteAltIcon from '@mui/icons-material/SatelliteAlt';
+import Tooltip from '@mui/material/Tooltip';
 import type { MissionType } from '../types/mission';
 
 interface TypeBadgeProps {
@@ -55,20 +56,22 @@ export const TypeBadge = ({ type }: TypeBadgeProps) => {
   const config = typeConfig[type];
 
   return (
-    <Chip
-      icon={config.icon}
-      label={type}
-      size="small"
-      sx={{
-        fontSize: '0.75rem',
-        fontWeight: 500,
-        color: config.color,
-        backgroundColor: config.bgColor,
-        border: `1px solid ${config.borderColor}`,
-        '& .MuiChip-icon': {
-          color: 'inherit',
-        },
-      }}
-    />
+    <Tooltip title={'Mission Type'} sx={{ color: 'rgba(0, 0, 0, 0.87)' }}>
+      <Chip
+        icon={config.icon}
+        label={type}
+        size="small"
+        sx={{
+          fontSize: '0.75rem',
+          fontWeight: 500,
+          color: config.color,
+          backgroundColor: config.bgColor,
+          border: `1px solid ${config.borderColor}`,
+          '& .MuiChip-icon': {
+            color: 'inherit',
+          },
+        }}
+      />
+    </Tooltip>
   );
 };

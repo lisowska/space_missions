@@ -14,3 +14,5 @@ export interface Mission {
 export type Agency = "NASA" | "ESA" | "Roscosmos" | "SpaceX" | "CNSA" | "ISRO" | "JAXA";
 export type MissionStatus = 'Success' | 'Failure' | 'Ongoing' | 'Planned';
 export type MissionType=  'Orbital' | 'Lunar' | 'Mars' | 'Deep Space' | 'ISS';
+
+

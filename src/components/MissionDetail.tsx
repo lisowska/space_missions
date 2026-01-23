@@ -58,6 +58,8 @@ const MissionDetail: React.FC<MissionDetailProps> = ({
       onClose={onClose}
       maxWidth="md"
       fullWidth
+      aria-labelledby="mission-dialog-title"
+      aria-describedby="mission-dialog-description"
       PaperProps={{
         sx: {
           borderRadius: 2,
@@ -69,7 +71,7 @@ const MissionDetail: React.FC<MissionDetailProps> = ({
       <Box
         sx={{
           position: 'relative',
-          height: '150px',
+          height: { xs: '120px', sm: '150px' },
           background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
           backgroundImage: `url(${cover})`,
           backgroundSize: 'cover',
@@ -85,7 +87,11 @@ const MissionDetail: React.FC<MissionDetailProps> = ({
           spacing={1}
           sx={{ position: 'absolute', top: 16, right: 16 }}
         >
-          <IconButton onClick={onClose} sx={{ color: 'white' }}>
+          <IconButton
+            onClick={onClose}
+            sx={{ color: 'white' }}
+            aria-label="Close mission details"
+          >
             <CloseIcon />
           </IconButton>
         </Stack>
@@ -100,8 +106,9 @@ const MissionDetail: React.FC<MissionDetailProps> = ({
         />
       </Box>
 
-      <DialogContent sx={{ padding: '40px 20px' }}>
+      <DialogContent sx={{ padding: { xs: '25px 20px', sm: '40px 20px' } }}>
         <Typography
+          id="mission-dialog-title"
           variant="h4"
           component="h2"
           sx={{ fontWeight: 700, mb: 1, fontSize: '1.5rem' }}
@@ -109,7 +116,16 @@ const MissionDetail: React.FC<MissionDetailProps> = ({
           {mission.name}
         </Typography>
 
-        <Stack direction="row" spacing={1} sx={{ mb: 3 }}>
+        <Stack
+          direction="row"
+          spacing={1}
+          sx={{
+            mb: {
+              xs: 2,
+              mb: 3,
+            },
+          }}
+        >
           <StatusBadge status={mission.status} />
           <TypeBadge type={mission.missionType} />
         </Stack>
@@ -117,8 +133,16 @@ const MissionDetail: React.FC<MissionDetailProps> = ({
           sx={{ border: '1px solid', borderColor: 'divider', mb: '15px' }}
         ></Box>
 
-        <Grid container spacing={2} sx={{ pb: '1rem', pt: '1rem' }}>
-          <Grid xs={6} sm={3} textAlign="center">
+        <Grid
+          container
+          spacing={2}
+          sx={{
+            pb: { xs: '0.5rem', sm: '1rem' },
+            pt: { xs: '0.5rem', sm: '1rem' },
+            ml: { xs: 0 },
+          }}
+        >
+          <Grid xs={3} sm={3} textAlign="center">
             <IconButton
               sx={{
                 backgroundColor: '#0073e61a',
@@ -128,9 +152,11 @@ const MissionDetail: React.FC<MissionDetailProps> = ({
                 padding: 0,
                 mb: 1,
               }}
+              aria-hidden="true"
             >
               <CalendarTodayIcon
                 sx={{ fontSize: '1.2rem', color: 'primary.main' }}
+                aria-hidden="true"
               />
             </IconButton>
             <Typography
@@ -149,7 +175,7 @@ const MissionDetail: React.FC<MissionDetailProps> = ({
               {formatDate(mission.launchDate)}
             </Typography>
           </Grid>
-          <Grid xs={6} sm={3} textAlign="center">
+          <Grid xs={3} sm={3} textAlign="center">
             <IconButton
               sx={{
                 backgroundColor: '#0073e61a',
@@ -159,9 +185,11 @@ const MissionDetail: React.FC<MissionDetailProps> = ({
                 padding: 0,
                 mb: 1,
               }}
+              aria-hidden="true"
             >
               <RocketLaunchIcon
                 sx={{ fontSize: '1.2rem', color: 'primary.main' }}
+                aria-hidden="true"
               />
             </IconButton>
             <Typography
@@ -179,7 +207,7 @@ const MissionDetail: React.FC<MissionDetailProps> = ({
               {mission.agency}
             </Typography>
           </Grid>
-          <Grid xs={6} sm={3} textAlign="center">
+          <Grid xs={3} sm={3} textAlign="center">
             <IconButton
               sx={{
                 backgroundColor: '#0073e61a',
@@ -189,9 +217,11 @@ const MissionDetail: React.FC<MissionDetailProps> = ({
                 padding: 0,
                 mb: 1,
               }}
+              aria-hidden="true"
             >
               <AttachMoneyIcon
                 sx={{ fontSize: '1.2rem', color: 'primary.main' }}
+                aria-hidden="true"
               />
             </IconButton>
             <Typography
@@ -209,7 +239,7 @@ const MissionDetail: React.FC<MissionDetailProps> = ({
               {formatCost(mission.cost)}
             </Typography>
           </Grid>
-          <Grid xs={6} sm={3} textAlign="center">
+          <Grid xs={3} sm={3} textAlign="center">
             <IconButton
               sx={{
                 backgroundColor: '#0073e61a',
@@ -219,8 +249,12 @@ const MissionDetail: React.FC<MissionDetailProps> = ({
                 padding: 0,
                 mb: 1,
               }}
+              aria-hidden="true"
             >
-              <PeopleIcon sx={{ fontSize: '1.2rem', color: 'primary.main' }} />
+              <PeopleIcon
+                sx={{ fontSize: '1.2rem', color: 'primary.main' }}
+                aria-hidden="true"
+              />
             </IconButton>
             <Typography
               variant="body2"
@@ -244,7 +278,10 @@ const MissionDetail: React.FC<MissionDetailProps> = ({
           sx={{ border: '1px solid', borderColor: 'divider', mb: '15px' }}
         ></Box>
 
-        <Typography variant="body1" sx={{ lineHeight: 1.7 }}>
+        <Typography
+          variant="body1"
+          sx={{ lineHeight: 1.7, fontSize: { xs: '0.875rem', sm: '1rem' } }}
+        >
           {mission.description}
         </Typography>
 
@@ -260,6 +297,7 @@ const MissionDetail: React.FC<MissionDetailProps> = ({
             >
               <PeopleAltOutlinedIcon
                 sx={{ fontSize: '1.2rem', color: 'primary.main' }}
+                aria-hidden="true"
               />
 
               <Typography variant="h6" sx={{ fontSize: '0.875rem' }}>

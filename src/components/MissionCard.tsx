@@ -15,6 +15,7 @@ import { Mission } from '../types/mission';
 import { AgencyLogo } from './AgencyLogo';
 import { StatusBadge } from './StatusBadge';
 import { TypeBadge } from './TypeBadge';
+import Tooltip from '@mui/material/Tooltip';
 
 interface MissionCardProps {
   mission: Mission;
@@ -34,16 +35,22 @@ const MissionCard: React.FC<MissionCardProps> = ({
     onFavoriteToggle(mission.id);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      onClick(mission);
+    }
+  };
+
   return (
     <Card
+      component="article"
       sx={{
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
         cursor: 'pointer',
         transition: 'all 300ms ease',
-        //   position: relative;
-        //   overflow: hidden;
         borderWidth: '2px',
         borderStyle: 'solid',
         borderColor: 'rgba(205, 213, 222, 0.5)',
@@ -69,6 +76,9 @@ const MissionCard: React.FC<MissionCardProps> = ({
         },
       }}
       onClick={() => onClick(mission)}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      aria-label={`${mission.name} mission, ${mission.agency}, ${mission.year}. ${mission.description.substring(0, 100)}`}
     >
       <CardContent sx={{ flexGrow: 1, position: 'relative', p: 2.5 }}>
         <IconButton
@@ -80,11 +90,12 @@ const MissionCard: React.FC<MissionCardProps> = ({
           }}
           onClick={handleFavoriteClick}
           size="small"
+          aria-label="Favorite missions"
         >
           {isFavorite ? (
-            <StarIcon sx={{ color: '#ffc107' }} />
+            <StarIcon sx={{ color: '#ffc107' }} aria-hidden="true" />
           ) : (
-            <StarBorderIcon />
+            <StarBorderIcon aria-hidden="true" />
           )}
         </IconButton>
 
@@ -135,16 +146,20 @@ const MissionCard: React.FC<MissionCardProps> = ({
         <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
           <StatusBadge status={mission.status} />
           <TypeBadge type={mission.missionType} />
-          <Chip
-            icon={<SupportAgentIcon sx={{ fontSize: '0.875rem !important' }} />}
-            label={
-              mission.crew.length > 0
-                ? `${mission.crew.length} crew`
-                : 'Uncrewed'
-            }
-            size="small"
-            sx={{ fontSize: '0.75rem' }}
-          />
+          <Tooltip title={'Crew size'} sx={{ color: 'rgba(0, 0, 0, 0.87)' }}>
+            <Chip
+              icon={
+                <SupportAgentIcon sx={{ fontSize: '0.875rem !important' }} />
+              }
+              label={
+                mission.crew.length > 0
+                  ? `${mission.crew.length} crew`
+                  : 'Uncrewed'
+              }
+              size="small"
+              sx={{ fontSize: '0.75rem' }}
+            />
+          </Tooltip>
         </Stack>
       </CardContent>
     </Card>

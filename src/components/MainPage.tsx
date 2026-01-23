@@ -3,14 +3,17 @@ import { Box, Grid, Typography, Paper } from '@mui/material';
 import Header from './Header';
 import MissionCard from './MissionCard';
 import MissionDetail from './MissionDetail';
-import FilterPanel from './FilterPanel';
 import { Mission } from '../types/mission';
+import SearchIcon from '@mui/icons-material/Search';
 import missionData from '../data/missionData.json';
-import FilterPanel2 from './FilterPanel2';
+import FilterPanel from './FilterPanel';
+
 const MainPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedAgencies, setSelectedAgencies] = useState<string[]>([]);
-  const [selectedStatuses, setSelectedStatuses] = useState<string[]>([]);
+  const [selectedStatuses, setSelectedStatuses] = useState<string[]>([
+    'Success',
+  ]);
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
   const [selectedMission, setSelectedMission] = useState<Mission | null>(null);
@@ -106,7 +109,7 @@ const MainPage: React.FC = () => {
           px: { xs: 2, md: 3 },
         }}
       >
-        <FilterPanel2
+        <FilterPanel
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
           selectedAgencies={selectedAgencies}
@@ -134,11 +137,29 @@ const MainPage: React.FC = () => {
           <Paper
             sx={{
               p: 4,
-              textAlign: 'center',
               backgroundColor: 'white',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
           >
-            <Typography variant="h6" color="text.secondary" gutterBottom>
+            <Box
+              style={{
+                width: '45px',
+                height: '45px',
+                marginBottom: '5px',
+                borderRadius: '4px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                background:
+                  'linear-gradient(135deg, hsl(210 100% 45%) 0%, hsl(199 89% 48%) 100%)',
+              }}
+            >
+              <SearchIcon sx={{ color: 'white' }} />
+            </Box>
+            <Typography variant="h6" color="#101D2E" gutterBottom>
               No missions found
             </Typography>
             <Typography variant="body2" color="text.secondary">

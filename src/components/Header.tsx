@@ -12,7 +12,7 @@ const Header = () => {
       sx={{
         position: 'relative',
         color: 'white',
-        padding: { xs: '2rem 1rem', md: '2rem 2rem' },
+        padding: { xs: '1rem 1rem', md: '2rem 2rem' },
         overflow: 'hidden',
         background:
           'linear-gradient(135deg, #16294A 0%, #0059B3 50%, #17A2E8 100%)',
@@ -40,17 +40,22 @@ const Header = () => {
           alignItems="center"
           justifyContent="space-between"
           spacing={1}
-          sx={{ mb: 2, ml: 7, mr: 7 }}
+          sx={{
+            mb: { xs: 1, md: 2 },
+            ml: { xs: 4, md: 7 },
+            mr: 7,
+            mt: { xs: 3 },
+          }}
         >
           <Box>
-            {/*  */}
             <Typography
               variant="h1"
               component="h1"
               sx={{
-                fontSize: { xs: '2rem', md: '3rem' },
+                fontSize: { xs: '1.7rem', md: '3rem' },
                 fontWeight: 700,
                 flex: 1,
+                pb: { xs: 1 },
               }}
             >
               SPACE MISSIONS
@@ -68,12 +73,7 @@ const Header = () => {
               Explore humanity's greatest journeys beyond Earth.
             </Typography>
 
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="flex-start"
-              sx={{}}
-            >
+            <Box display="flex" alignItems="center" justifyContent="flex-start">
               <Box display="flex" alignItems="center">
                 <TravelExploreIcon
                   sx={{
@@ -83,6 +83,7 @@ const Header = () => {
                       color: 'rgba(255, 255, 255, 0.8)',
                     },
                   }}
+                  aria-hidden="true"
                 />
                 <Typography
                   variant="body1"
@@ -140,13 +141,21 @@ const Header = () => {
                       color: 'rgba(255, 255, 255, 0.8)',
                     },
                   }}
+                  aria-hidden="true"
                 />
               </Box>
             </Box>
           </Box>
 
-          <AutoAwesomeIcon sx={{ fontSize: { xs: '1rem', md: '2rem' } }} />
-          <Avatar alt="NASA logo" src={logo} sx={{ width: 95, height: 95 }} />
+          <AutoAwesomeIcon
+            sx={{ fontSize: { xs: '1rem', md: '2rem' } }}
+            aria-hidden="true"
+          />
+          <Avatar
+            alt="NASA logo"
+            src={logo}
+            sx={{ width: { xs: 75, md: 95 }, height: { xs: 75, md: 95 } }}
+          />
         </Stack>
       </Box>
     </Box>
