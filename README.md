@@ -1,6 +1,6 @@
 # UI/UX Interview Template
 
-This is a minimal React 18 + TypeScript + Material UI template for interview candidates.
+This is a minimal React 18 + TypeScript + Material UI Space Missions app.
 
 ## Getting Started
 
@@ -50,7 +50,7 @@ I made several accessibility improvements: All interactive elements have ARIA la
 
 I used **Card** components for missions because they provide built-in elevation and hover effects. **TextField** with InputAdornment for search gives a polished look with the search icon. **Button** components with startIcon/endIcon make filter buttons clear and consistent. **Menu** components for dropdowns provide proper keyboard navigation out of the box. **Chip** components for active filters are perfect - they're designed for removable tags. **Grid** system handles responsive layout automatically. **Dialog** for mission details provides proper focus management and backdrop.
 
-2. **Visual Design Choices**
+## 2. **Visual Design Choices**
 
 ### Color Choices
 
@@ -68,7 +68,7 @@ I used consistent spacing throughout: **2-3rem** padding for major sections, **1
 
 Status is shown with **colored chips** - this is immediately recognizable and doesn't require reading text. The calendar icon on status chips reinforces that it's about timing/state. Mission type chips use simple text labels because types are descriptive enough. The combination of color + icon + text makes status information scannable at a glance. In the detail view, status colors match the chips for consistency.
 
-3. **What You'd Improve:**
+## 3. **What You'd Improve:**
 
 ### UX Enhancements
 
