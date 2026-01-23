@@ -1,4 +1,4 @@
-# UI/UX Interview Template
+# Space Missions
 
 This is a minimal React 18 + TypeScript + Material UI Space Missions app.
 
@@ -81,3 +81,23 @@ I'd add **smooth transitions** when filters change - cards fading in/out rather 
 ### User Testing Insights
 
 I'd want to test: **Filter discoverability** - do users find the filter buttons easily? **Search behavior** - do users search by name, or do they prefer filters? **Card information** - is the right amount of info shown, or too much/too little? **Mobile experience** - are touch targets large enough, is scrolling comfortable? **Detail view** - do users prefer modal or separate page? **Favorite usage** - do users actually use favorites, and how? **Filter combinations** - which filters are used together most often?
+
+## Screenshots
+
+### Desktop view
+
+![Desktop view](./src/assets/screenshots/Desktop_1.png)
+![Desktop view: filters](./src/assets/screenshots/Desktop_2.png)
+![Desktop view: filters](./src/assets/screenshots/Desktop_3.png)
+![Desktop: Mission Deatail view](./src/assets/screenshots/Desktop_MissionDetail.4.png)
+
+### Mobile view
+
+![Mobile view: filters](./src/assets/screenshots/Mobile_1.png)
+![Mobile view:filters](./src/assets/screenshots/Mobile_2.png)
+![Mobile: No found view](./src/assets/screenshots/Mobile_3.png)
+![Mobile: Mission Detail view](./src/assets/screenshots/Mobile_MissionDetail_4.png)
+
+### Key interaction – filters
+
+![Key interaction](./screenshots/interaction.png)
